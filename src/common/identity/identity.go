@@ -2,6 +2,8 @@ package identity
 
 import (
 	"fmt"
+	"github.com/toolkits/pkg/runner"
+	"path"
 	"strings"
 
 	"github.com/toolkits/pkg/file"
@@ -61,12 +63,12 @@ func getByShell(s shell) (string, error) {
 }
 
 func getIdentityYmlFile() string {
-	yml := "etc/identity.local.yml"
-	if file.IsExist(yml) {
-		return yml
+	confdir := path.Join(runner.Cwd, "etc")
+	yml := path.Join(confdir, "identity.local.yml")
+	if !file.IsExist(yml) {
+		yml = path.Join(confdir, "identity.yml")
 	}
 
-	yml = "etc/identity.yml"
 	if file.IsExist(yml) {
 		return yml
 	}

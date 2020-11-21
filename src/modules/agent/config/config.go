@@ -82,9 +82,7 @@ var (
 	Endpoint string
 )
 
-func Parse() error {
-	conf := getYmlFile()
-
+func Parse(conf string) error {
 	bs, err := file.ReadBytes(conf)
 	if err != nil {
 		return fmt.Errorf("cannot read yml[%s]: %v", conf, err)

@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/toolkits/pkg/file"
 	"os"
 	"os/signal"
 	"syscall"
@@ -59,6 +60,7 @@ func init() {
 }
 
 func main() {
+	aconf()
 	parseConf()
 
 	loggeri.Init(config.Config.Logger)
@@ -130,7 +132,7 @@ func monStart() {
 }
 
 func parseConf() {
-	if err := config.Parse(); err != nil {
+	if err := config.Parse(*conf); err != nil {
 		fmt.Println("cannot parse configuration file:", err)
 		os.Exit(1)
 	}
@@ -147,4 +149,24 @@ func endingProc() {
 	logger.Close()
 	http.Shutdown()
 	fmt.Println("portal stopped successfully")
+}
+
+// auto detect configuration file
+func aconf() {
+	if *conf != "" && file.IsExist(*conf) {
+		return
+	}
+
+	*conf = "etc/agent.local.yml"
+	if file.IsExist(*conf) {
+		return
+	}
+
+	*conf = "etc/agent.yml"
+	if file.IsExist(*conf) {
+		return
+	}
+
+	fmt.Println("no configuration file for agent")
+	os.Exit(1)
 }
