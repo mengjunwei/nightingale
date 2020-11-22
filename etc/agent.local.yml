@@ -42,8 +42,8 @@ report:
   sn: dmidecode -s system-serial-number | tail -n 1
 
   fields:
-    cpu: cat /proc/cpuinfo | grep processor | wc -l
-    mem: cat /proc/meminfo | grep MemTotal | awk '{printf "%dGi", $2/1024/1024}'
+    cpu: 20
+    mem: 80
     disk: df -m | grep '/dev/' | grep -v '/var/lib' | grep -v tmpfs | awk '{sum += $2};END{printf "%dGi", sum/1024}'
 
 sys:

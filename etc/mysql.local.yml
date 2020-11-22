@@ -3,7 +3,7 @@ rdb:
   addr: "root:mjw950308@tcp(127.0.0.1:3306)/n9e_rdb?charset=utf8&parseTime=True&loc=Asia%2FShanghai"
   max: 16
   idle: 4
-  debug: false
+  debug: true
 ams:
   addr: "root:mjw950308@tcp(127.0.0.1:3306)/n9e_ams?charset=utf8&parseTime=True&loc=Asia%2FShanghai"
   max: 16
